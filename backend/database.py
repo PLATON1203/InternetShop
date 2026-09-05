@@ -4,5 +4,18 @@ from .config import settings
 
 engine = create_engine(
     settings.database_url,
-    connect_args={"check_same_"}
+    connect_args={"check_same_thread:": False}
 )
+
+SessionLocal = sessionmaker(auotocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+def init_db():
+    base.metadata.create_all(bind=engine)
