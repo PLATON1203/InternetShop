@@ -35,3 +35,13 @@ class ProductService:
         products = self.product_repository.get_by_category(category_id)
         products_response = [ProductResponse.model_validate(prod) for prod in products]
         return ProductResponse(products=products_response, total=len(products_response))
+
+    def create_product(self, product_data: ProductCreate) -> ProductResponse:
+        category = self.category_repository.get_by_id(product_data.categoty_id)
+        if not category:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Category with id {product_data.categoty_id} does not exist"
+            )
+        product = self.product_repository.create(product_data)
+        return ProductResponse.model_validate(product)
