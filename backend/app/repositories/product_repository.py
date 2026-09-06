@@ -3,7 +3,7 @@ from typing import List, Optional
 from ..models.product import Product
 from ..schemas.product import ProductCreate
 
-class CategoryRepository:
+class ProductRepository:
     def __init__(self, db: Session):
         self.db = db
 
@@ -38,6 +38,6 @@ class CategoryRepository:
         return (
             self.db.query(Product)
             .options(joinedload(Product.category))
-            .filter(Product.id.in.(product_ids))
+            .filter(Product.id.in_(product_ids))
             .all()
         )

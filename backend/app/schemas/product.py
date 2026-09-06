@@ -29,4 +29,8 @@ class ProductResponse(BaseModel):
     class Config:
         form_attributes = True
 
+class ProductListResponse(BaseModel):
+    products: list[ProductResponse]
+    total: int = Field(..., description='Total number of products')
+
 
