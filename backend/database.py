@@ -18,4 +18,4 @@ def get_db():
         db.close()
 
 def init_db():
-    base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=engine)

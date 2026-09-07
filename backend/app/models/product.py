@@ -6,7 +6,7 @@ from ..database import Base
 class Product(Base):
     __tablename__ = "products"
     
-    id = Column(Intenger, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, nullable=False, index=True)
     description = Column(Text)
     price = Column(Float, nullable=False)
